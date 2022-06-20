@@ -1,0 +1,8 @@
+//
+// Created by alfonso on 6/18/22.
+//
+
+#ifndef PUNTOPERTENENCIA_ENTIDAD_H
+#define PUNTOPERTENENCIA_ENTIDAD_H
+
+#endif //PUNTOPERTENENCIA_ENTIDAD_H

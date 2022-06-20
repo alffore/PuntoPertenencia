@@ -91,6 +91,27 @@ build CMakeFiles/PuntoPertenencia.dir/src/lectores/LectorMnz.cpp.o: CXX_COMPILER
   OBJECT_DIR = CMakeFiles/PuntoPertenencia.dir
   OBJECT_FILE_DIR = CMakeFiles/PuntoPertenencia.dir/src/lectores
 
+build CMakeFiles/PuntoPertenencia.dir/src/lectores/LectorEnt.cpp.o: CXX_COMPILER__PuntoPertenencia_Debug /home/alfonso/devel/PuntoPertenencia/src/lectores/LectorEnt.cpp || cmake_object_order_depends_target_PuntoPertenencia
+  DEFINES = -DCGAL_NOT_HEADER_ONLY=1 -DCGAL_USE_GMPXX=1
+  DEP_FILE = CMakeFiles/PuntoPertenencia.dir/src/lectores/LectorEnt.cpp.o.d
+  FLAGS = -g -frounding-math
+  OBJECT_DIR = CMakeFiles/PuntoPertenencia.dir
+  OBJECT_FILE_DIR = CMakeFiles/PuntoPertenencia.dir/src/lectores
+
+build CMakeFiles/PuntoPertenencia.dir/src/lectores/LectorMun.cpp.o: CXX_COMPILER__PuntoPertenencia_Debug /home/alfonso/devel/PuntoPertenencia/src/lectores/LectorMun.cpp || cmake_object_order_depends_target_PuntoPertenencia
+  DEFINES = -DCGAL_NOT_HEADER_ONLY=1 -DCGAL_USE_GMPXX=1
+  DEP_FILE = CMakeFiles/PuntoPertenencia.dir/src/lectores/LectorMun.cpp.o.d
+  FLAGS = -g -frounding-math
+  OBJECT_DIR = CMakeFiles/PuntoPertenencia.dir
+  OBJECT_FILE_DIR = CMakeFiles/PuntoPertenencia.dir/src/lectores
+
+build CMakeFiles/PuntoPertenencia.dir/src/salidas.cpp.o: CXX_COMPILER__PuntoPertenencia_Debug /home/alfonso/devel/PuntoPertenencia/src/salidas.cpp || cmake_object_order_depends_target_PuntoPertenencia
+  DEFINES = -DCGAL_NOT_HEADER_ONLY=1 -DCGAL_USE_GMPXX=1
+  DEP_FILE = CMakeFiles/PuntoPertenencia.dir/src/salidas.cpp.o.d
+  FLAGS = -g -frounding-math
+  OBJECT_DIR = CMakeFiles/PuntoPertenencia.dir
+  OBJECT_FILE_DIR = CMakeFiles/PuntoPertenencia.dir/src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target PuntoPertenencia
@@ -99,7 +120,7 @@ build CMakeFiles/PuntoPertenencia.dir/src/lectores/LectorMnz.cpp.o: CXX_COMPILER
 #############################################
 # Link the executable PuntoPertenencia
 
-build PuntoPertenencia: CXX_EXECUTABLE_LINKER__PuntoPertenencia_Debug CMakeFiles/PuntoPertenencia.dir/src/main.cpp.o CMakeFiles/PuntoPertenencia.dir/src/coordenadas/ITRF2CCL.cpp.o CMakeFiles/PuntoPertenencia.dir/src/coordenadas/CCG2CCL.cpp.o CMakeFiles/PuntoPertenencia.dir/src/lectores/LectorINT.cpp.o CMakeFiles/PuntoPertenencia.dir/src/lectores/LectorRec.cpp.o CMakeFiles/PuntoPertenencia.dir/src/lectores/LectorMnz.cpp.o | /usr/lib64/libCGAL.so.13.0.3 /usr/lib64/libproj.so.22.2.1 /usr/lib64/libgmpxx.so /usr/lib64/libmpfr.so /usr/lib64/libgmp.so
+build PuntoPertenencia: CXX_EXECUTABLE_LINKER__PuntoPertenencia_Debug CMakeFiles/PuntoPertenencia.dir/src/main.cpp.o CMakeFiles/PuntoPertenencia.dir/src/coordenadas/ITRF2CCL.cpp.o CMakeFiles/PuntoPertenencia.dir/src/coordenadas/CCG2CCL.cpp.o CMakeFiles/PuntoPertenencia.dir/src/lectores/LectorINT.cpp.o CMakeFiles/PuntoPertenencia.dir/src/lectores/LectorRec.cpp.o CMakeFiles/PuntoPertenencia.dir/src/lectores/LectorMnz.cpp.o CMakeFiles/PuntoPertenencia.dir/src/lectores/LectorEnt.cpp.o CMakeFiles/PuntoPertenencia.dir/src/lectores/LectorMun.cpp.o CMakeFiles/PuntoPertenencia.dir/src/salidas.cpp.o | /usr/lib64/libCGAL.so.13.0.3 /usr/lib64/libproj.so.22.2.1 /usr/lib64/libgmpxx.so /usr/lib64/libmpfr.so /usr/lib64/libgmp.so
   FLAGS = -g
   LINK_LIBRARIES = /usr/lib64/libCGAL.so.13.0.3  /usr/lib64/libproj.so.22.2.1  /usr/lib64/libgmpxx.so  /usr/lib64/libmpfr.so  /usr/lib64/libgmp.so
   OBJECT_DIR = CMakeFiles/PuntoPertenencia.dir
