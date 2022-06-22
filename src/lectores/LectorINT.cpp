@@ -55,3 +55,18 @@ void LectorINT::parser(string scad) {
     split(vc, scad, sep);
 
 }
+
+/**
+ * 
+ */
+void LectorINT::creaPoligono(string scad, vector<Point>& vpuntos) {
+    vector<string> vc;
+
+    split(vc, scad, ",");
+
+    for(auto iter = vc.begin();iter<vc.end(); iter +=2){
+        Point p(atof(iter->c_str()),atof((iter+1)->c_str()));
+        vpuntos.push_back(p);
+    }
+}
+

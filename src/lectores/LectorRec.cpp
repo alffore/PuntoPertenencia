@@ -32,6 +32,8 @@ void LectorRec::parser(string scad) {
     rec.localidad_id=atoi(vc[6].c_str());
 
     rec.id_mnz = -1;
+    rec.id_ent=-1;
+    rec.id_mun=-1;
 
     vRec.push_back(rec);
 }

@@ -10,10 +10,6 @@
 #include "../objetos/Manzana.h"
 
 
-typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
-typedef K::Point_2 Point;
-
-
 class LectorMnz: public LectorINT{
 
 public:
@@ -26,7 +22,6 @@ public:
 private:
     vector<Manzana>& vMnz;
 
-    void creaPoligono(string scad,vector<Point>& vpuntos);
 };
 
 

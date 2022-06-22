@@ -18,10 +18,14 @@
 
 #include "objetos/Recurso.h"
 #include "objetos/Manzana.h"
+#include "objetos/Entidad.h"
+#include "objetos/Municipio.h"
 
 #include "lectores/LectorINT.h"
 #include "lectores/LectorRec.h"
 #include "lectores/LectorMnz.h"
+#include "lectores/LectorEnt.h"
+#include "lectores/LectorMun.h"
 
 
 typedef CGAL::Exact_predicates_inexact_constructions_kernel K;

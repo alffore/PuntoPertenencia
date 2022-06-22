@@ -11,6 +11,12 @@
 #include <fstream>
 #include <cmath>
 
+#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
+
+typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
+typedef K::Point_2 Point;
+
+
 using namespace std;
 
 using std::ifstream;
@@ -32,6 +38,8 @@ public:
 protected:
 
     string sep;
+
+    void creaPoligono(string scad, vector<Point>& vpuntos);
 
 private:
 

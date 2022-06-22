@@ -5,11 +5,38 @@
 using namespace std;
 
 vector<Recurso> vRec;
+
 vector<Manzana> vMnz;
+vector<Entidad> vEnt;
+vector<Municipio> vMun;
+
+long long avance[] = {0, 0, 0, 0, 0, 0, 0, 0};
 
 const int NUM_HILOS = 8;
-int tamrec = 0;
-int tammnz = 0;
+size_t tamrec = 0;
+
+size_t tammnz = 0;
+size_t tament = 0;
+size_t tammun = 0;
+
+extern void imprimeSalidaMnz(string sarchivo, vector<Recurso> &vRec, vector<Manzana> &vMnz);
+
+extern void imprimeSalidaMun(string sarchivo, vector<Recurso> &vRec, vector<Municipio> &vMun);
+
+extern void imprimeSalidaEnt(string sarchivo, vector<Recurso> &vRec, vector<Entidad> &vEnt);
+
+/**
+ *
+ */
+void imprimeAvance(double tam) {
+    double vtot = 0;
+    for (auto &v: avance) {
+        cout << (double)v * 100.00 / tam << " ";
+        vtot += v;
+    }
+    cout << vtot * 100.00 / tam << endl;
+}
+
 
 /**
  * @brief 
@@ -39,16 +66,23 @@ int checa_posicion(Point p, vector<Point>::iterator p_inicio, vector<Point>::ite
  * Función que checa si un punto esta contenido en algun poligono
  * @param id
  */
-void checaPuntos(int id) {
+void checaPuntosMnz(int id) {
 
-    for (int m = 0; m < tammnz; m++) {
+    for (size_t m = 0; m < tammnz; m++) {
         Manzana mnz = vMnz[m];
 
-        for (int i = id; i < tamrec; i += NUM_HILOS) {
+        for (size_t i = id; i < tamrec; i += NUM_HILOS) {
+            avance[id]++;
+
+            if (id == 0 && avance[id] % 10000 == 0) {
+                imprimeAvance(tamrec * tammnz);
+            }
+
             int res = checa_posicion(vRec[i].p, mnz.vpuntos.begin(), mnz.vpuntos.end(), K());
 
             if (res > 0) {
                 vRec[i].id_mnz = m;
+                continue;
             }
         }
 
@@ -56,24 +90,56 @@ void checaPuntos(int id) {
 
 }
 
-
-void imprimeSalida() {
-
-    ofstream ofs("/home/alfonso/devel/renic.git/renic.git/utiles/checa_iter_cg/ver2/salida/problemas.txt");
-    for (auto &rec: vRec) {
-        if (rec.id_mnz > 0) {
-            Manzana mnz = vMnz[rec.id_mnz];
-            if (rec.localidad_id != mnz.localidad_id || rec.municipio_id != mnz.municipio_id ||
-                rec.estado_id != mnz.estado_id) {
-                ofs << rec.id << "|" << rec.stipo << "|" << rec.estado_id << "|" << rec.municipio_id << "|"
-                    << rec.localidad_id << "|" << mnz.estado_id << "|" << mnz.municipio_id << "|" << mnz.localidad_id
-                    << endl;
+/**
+ * @brief 
+ * 
+ * @param id 
+ */
+void checaPuntosEnt(int id) {
+    for (size_t e = 0; e < tament; e++) {
+        Entidad ent = vEnt[e];
+        for (size_t i = id; i < tamrec; i += NUM_HILOS) {
+            avance[id]++;
+            
+            if (id == 0 && avance[id] % 10000 == 0) {
+                imprimeAvance(tamrec * tament);
             }
+
+            int res = checa_posicion(vRec[i].p, ent.vpuntos.begin(), ent.vpuntos.end(), K());
+            
+            if (res > 0) {
+                vRec[i].id_ent = e;
+                continue;
+            }
+
         }
     }
-
 }
 
+/**
+ * @brief 
+ * 
+ * @param id 
+ */
+void checaPuntosMun(int id) {
+    for (size_t e = 0; e < tammun; e++) {
+        Municipio mun = vMun[e];
+        for (size_t i = id; i < tamrec; i += NUM_HILOS) {
+            avance[id]++;
+
+            if (id == 0 && avance[id] % 10000 == 0) {
+                imprimeAvance(tamrec * tammun);
+            }
+
+            int res = checa_posicion(vRec[i].p, mun.vpuntos.begin(), mun.vpuntos.end(), K());
+            if (res > 0) {
+                vRec[i].id_mun = e;
+                continue;
+            }
+            
+        }
+    }
+}
 
 /**
  *
@@ -87,35 +153,91 @@ int main() {
     CCG2CCL c2c(sp1, sp2);
 
     //Carga de recursos
-    string sarchivo_rec = "/home/alfonso/devel/renic.git/renic.git/utiles/checa_iter_cg/ver2/origen/recursos.txt";
+    string sarchivo_rec = "/home/alfonso/devel/renic.git/renic.git/utiles/checa_iter_cg/ver2/origen/recursos_0.txt";
+    //string sarchivo_rec = "/home/alfonso/devel/renic.git/renic.git/utiles/checa_iter_cg/ver2/origen/recursos_20.txt";
     //string sarchivo_rec = "/home/alfonso/devel/renic.git/renic.git/utiles/checa_iter_cg/ver2/origen/recursos_demo.txt";
     LectorRec lecrec(sarchivo_rec, "|", vRec, c2c);
     lecrec.inicia();
     cout << "Total de recursos: " << vRec.size() << endl;
 
+    //Carga de entidades
+    string sarchivo_ent = "/fhome/alfonso/devel/CPV2020/MGM/INTS/00ent.int";
+    LectorEnt lecent(sarchivo_ent, "|", vEnt);
+    lecent.inicia();
+    cout << "Total de poligonos de entidades: " << vEnt.size() << endl;
+
+    string sarchivo_mun = "/fhome/alfonso/devel/CPV2020/MGM/INTS/00mun.int";
+    LectorMun lecmun(sarchivo_mun, "|", vMun);
+    lecmun.inicia();
+    cout << "Total de poligonos de municipios: " << vMun.size() << endl;
+
+
     //Carga de manzanas
     string sarchivo_mnz = "/fhome/alfonso/devel/CPV2020/MGM/mnz/todos.int";
-    //string sarchivo_mnz = "/fhome/alfonso/devel/CPV2020/MGM/mnz/01m.int";
+    //string sarchivo_mnz = "/fhome/alfonso/devel/CPV2020/MGM/mnz/20m.int";
     LectorMnz lecmnz(sarchivo_mnz, "|", vMnz);
     lecmnz.inicia();
     cout << "Total de manzanas: " << vMnz.size() << endl;
 
+    //return 0;
 
     tamrec = vRec.size();
     tammnz = vMnz.size();
+    tament = vEnt.size();
+    tammun = vMun.size();
+
+    string sarchivo_sal = "problemas_ent.txt";
 
     //Multihilos
-    vector<thread> vt;
+    cout << "Entidades..." << endl;
+    vector<thread> vthreads;
 
     for (int i = 0; i < NUM_HILOS; i++) {
-        vt.emplace_back(checaPuntos, i);
+
+        vthreads.emplace_back(checaPuntosEnt, i);
     }
 
-    for (auto &th: vt) {
+    for (auto &th: vthreads) {
         th.join();
     }
 
-    imprimeSalida();
+    imprimeSalidaEnt(sarchivo_sal, vRec, vEnt);
+
+    for (auto &v: avance) {
+        v = 0;
+    }
+
+    cout << "Municipios..." << endl;
+    vthreads.clear();
+    sarchivo_sal = "problemas_mun.txt";
+
+    for (int i = 0; i < NUM_HILOS; i++) {
+        vthreads.emplace_back(checaPuntosMun, i);
+    }
+
+    for (auto &th: vthreads) {
+        th.join();
+    }
+
+    imprimeSalidaMun(sarchivo_sal, vRec, vMun);
+
+    for (auto &v: avance) {
+        v = 0;
+    }
+
+    cout << "Manzanas..." << endl;
+    vthreads.clear();
+    sarchivo_sal = "problemas_mnz.txt";
+
+    for (int i = 0; i < NUM_HILOS; i++) {
+        vthreads.emplace_back(checaPuntosMnz, i);
+    }
+
+    for (auto &th: vthreads) {
+        th.join();
+    }
+
+    imprimeSalidaMnz(sarchivo_sal, vRec, vMnz);
 
     return 0;
 }

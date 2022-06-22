@@ -6,7 +6,23 @@
 #define PUNTOPERTENENCIA_LECTORENT_H
 
 
-class LectorEnt {
+#include "LectorINT.h"
+#include "../objetos/Entidad.h"
+
+
+class LectorEnt : public LectorINT {
+
+public:
+
+    LectorEnt(string &sarchivo, string sep, vector<Entidad> &vEnt) : LectorINT(sarchivo, sep), vEnt(vEnt) {}
+
+    void parser(string scad) override;
+
+private:
+
+    vector<Entidad> &vEnt;
+
+   
 
 };
 

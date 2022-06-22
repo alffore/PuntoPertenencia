@@ -28,6 +28,8 @@ struct Recurso{
     int localidad_id;
 
     int id_mnz;
+    int id_ent;
+    int id_mun;
 };
 
 #endif //PUNTOPERTENENCIA_RECURSO_H
