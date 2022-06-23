@@ -31,7 +31,7 @@ extern void imprimeSalidaEnt(string sarchivo, vector<Recurso> &vRec, vector<Enti
 void imprimeAvance(double tam) {
     double vtot = 0;
     for (auto &v: avance) {
-        cout << (double)v * 100.00 / tam << " ";
+        cout << (double) v * 100.00 / tam << " ";
         vtot += v;
     }
     cout << vtot * 100.00 / tam << endl;
@@ -78,11 +78,14 @@ void checaPuntosMnz(int id) {
                 imprimeAvance(tamrec * tammnz);
             }
 
-            int res = checa_posicion(vRec[i].p, mnz.vpuntos.begin(), mnz.vpuntos.end(), K());
+            if (vRec[i].nestado_id == mnz.estado_id && vRec[i].nmunicipio_id == mnz.municipio_id) {
+                int res = checa_posicion(vRec[i].p, mnz.vpuntos.begin(), mnz.vpuntos.end(), K());
 
-            if (res > 0) {
-                vRec[i].id_mnz = m;
-                continue;
+                if (res > 0) {
+                    vRec[i].id_mnz = m;
+                    vRec[i].nlocalidad_id = mnz.localidad_id;
+                    continue;
+                }
             }
         }
 
@@ -100,15 +103,16 @@ void checaPuntosEnt(int id) {
         Entidad ent = vEnt[e];
         for (size_t i = id; i < tamrec; i += NUM_HILOS) {
             avance[id]++;
-            
+
             if (id == 0 && avance[id] % 10000 == 0) {
                 imprimeAvance(tamrec * tament);
             }
 
             int res = checa_posicion(vRec[i].p, ent.vpuntos.begin(), ent.vpuntos.end(), K());
-            
+
             if (res > 0) {
                 vRec[i].id_ent = e;
+                vRec[i].nestado_id = ent.estado_id;
                 continue;
             }
 
@@ -131,12 +135,15 @@ void checaPuntosMun(int id) {
                 imprimeAvance(tamrec * tammun);
             }
 
-            int res = checa_posicion(vRec[i].p, mun.vpuntos.begin(), mun.vpuntos.end(), K());
-            if (res > 0) {
-                vRec[i].id_mun = e;
-                continue;
+            if (vRec[i].nestado_id == mun.estado_id) {
+                int res = checa_posicion(vRec[i].p, mun.vpuntos.begin(), mun.vpuntos.end(), K());
+                if (res > 0) {
+                    vRec[i].id_mun = e;
+                    vRec[i].nmunicipio_id = mun.municipio_id;
+                    continue;
+                }
             }
-            
+
         }
     }
 }

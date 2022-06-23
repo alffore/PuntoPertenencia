@@ -30,6 +30,10 @@ struct Recurso{
     int id_mnz;
     int id_ent;
     int id_mun;
+
+    int nestado_id;
+    int nmunicipio_id;
+    int nlocalidad_id;
 };
 
 #endif //PUNTOPERTENENCIA_RECURSO_H

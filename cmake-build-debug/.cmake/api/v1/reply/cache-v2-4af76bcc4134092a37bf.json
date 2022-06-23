@@ -219,7 +219,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/alfonso/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/221.5787.29/bin/cmake/linux/bin/cmake"
+			"value" : "/home/alfonso/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/221.5921.27/bin/cmake/linux/bin/cmake"
 		},
 		{
 			"name" : "CMAKE_CPACK_COMMAND",
@@ -231,7 +231,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/alfonso/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/221.5787.29/bin/cmake/linux/bin/cpack"
+			"value" : "/home/alfonso/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/221.5921.27/bin/cmake/linux/bin/cpack"
 		},
 		{
 			"name" : "CMAKE_CTEST_COMMAND",
@@ -243,7 +243,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/alfonso/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/221.5787.29/bin/cmake/linux/bin/ctest"
+			"value" : "/home/alfonso/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/221.5921.27/bin/cmake/linux/bin/ctest"
 		},
 		{
 			"name" : "CMAKE_CXX_COMPILER",
@@ -527,7 +527,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/alfonso/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/221.5787.29/bin/cmake/linux/bin/ccmake"
+			"value" : "/home/alfonso/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/221.5921.27/bin/cmake/linux/bin/ccmake"
 		},
 		{
 			"name" : "CMAKE_EXECUTABLE_FORMAT",
@@ -759,7 +759,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "/home/alfonso/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/221.5787.29/bin/ninja/linux/ninja"
+			"value" : "/home/alfonso/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/221.5921.27/bin/ninja/linux/ninja"
 		},
 		{
 			"name" : "CMAKE_MODULE_LINKER_FLAGS",
@@ -991,7 +991,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/alfonso/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/221.5787.29/bin/cmake/linux/share/cmake-3.22"
+			"value" : "/home/alfonso/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/221.5921.27/bin/cmake/linux/share/cmake-3.22"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",

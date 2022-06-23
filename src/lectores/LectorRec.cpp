@@ -35,5 +35,11 @@ void LectorRec::parser(string scad) {
     rec.id_ent=-1;
     rec.id_mun=-1;
 
+
+    rec.nestado_id=-1;
+    rec.nmunicipio_id=-1;
+    rec.nlocalidad_id=-1;
+
+
     vRec.push_back(rec);
 }
