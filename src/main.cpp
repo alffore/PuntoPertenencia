@@ -12,7 +12,7 @@ vector<Municipio> vMun;
 
 long long avance[] = {0, 0, 0, 0, 0, 0, 0, 0};
 
-const int NUM_HILOS = 8;
+unsigned int NUM_HILOS = 8;
 size_t tamrec = 0;
 
 size_t tammnz = 0;
@@ -74,7 +74,7 @@ void checaPuntosMnz(int id) {
         for (size_t i = id; i < tamrec; i += NUM_HILOS) {
             avance[id]++;
 
-            if (id == 0 && avance[id] % 10000 == 0) {
+            if (id == 0 && avance[id] % 100000 == 0) {
                 imprimeAvance(tamrec * tammnz);
             }
 
@@ -154,6 +154,14 @@ void checaPuntosMun(int id) {
  */
 int main() {
 
+    unsigned int n = thread::hardware_concurrency();
+
+    if (n > 0) {
+        NUM_HILOS = n;
+    }
+
+    cout << "Total de hilos posibles: " << NUM_HILOS << endl;
+
     string sp1 = "EPSG:4326";
     string sp2 = "EPSG:6372";
 
@@ -186,7 +194,6 @@ int main() {
     lecmnz.inicia();
     cout << "Total de manzanas: " << vMnz.size() << endl;
 
-    //return 0;
 
     tamrec = vRec.size();
     tammnz = vMnz.size();
