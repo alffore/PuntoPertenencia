@@ -26,14 +26,21 @@ struct Recurso{
     int estado_id;
     int municipio_id;
     int localidad_id;
+    int manzana_id;
+    string sageb_id;
+
 
     int id_mnz;
     int id_ent;
     int id_mun;
+    int id_agb;
+
 
     int nestado_id;
     int nmunicipio_id;
     int nlocalidad_id;
+    int nmanzana_id;
+    string nsageb_id;
 };
 
 #endif //PUNTOPERTENENCIA_RECURSO_H

@@ -1,10 +1,9 @@
 //
-// Created by alfonso on 6/13/22.
+// Created by alfonso on 11/13/22.
 //
 
-#ifndef PUNTOPERTENENCIA_MANZANA_H
-#define PUNTOPERTENENCIA_MANZANA_H
-
+#ifndef PUNTOPERTENENCIA_AGEB_H
+#define PUNTOPERTENENCIA_AGEB_H
 
 #include <vector>
 #include <string>
@@ -16,7 +15,7 @@ typedef K::Point_2 Point;
 
 using std::string, std::vector;
 
-struct Manzana{
+struct Ageb{
     
     vector<Point> vpuntos;
     int npuntos;
@@ -25,10 +24,10 @@ struct Manzana{
     int municipio_id;
     int localidad_id;
 
-    string sageb;
-    int manzana_id;
+    string sageb_id;
+
 
 };
 
 
-#endif //PUNTOPERTENENCIA_MANZANA_H
+#endif //PUNTOPERTENENCIA_AGEB_H

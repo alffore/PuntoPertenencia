@@ -14,7 +14,7 @@ using namespace std;
  */
 void imprimeSalidaMnz(string sarchivo, vector<Recurso> &vRec, vector<Manzana> &vMnz) {
 
-    ofstream ofs("/home/alfonso/devel/renic.git/renic.git/utiles/checa_iter_cg/ver2/salida/" + sarchivo);
+    ofstream ofs("/home/alfonso/devel/renic/renic.git/utiles/checa_iter_cg/ver2/salida/" + sarchivo);
     for (auto &rec: vRec) {
         if (rec.id_mnz > 0) {
             Manzana mnz = vMnz[rec.id_mnz];
@@ -26,7 +26,7 @@ void imprimeSalidaMnz(string sarchivo, vector<Recurso> &vRec, vector<Manzana> &v
             }
         }
     }
-
+    ofs.close();
 }
 
 /**
@@ -36,7 +36,7 @@ void imprimeSalidaMnz(string sarchivo, vector<Recurso> &vRec, vector<Manzana> &v
  */
 void imprimeSalidaMun(string sarchivo, vector<Recurso> &vRec, vector<Municipio> &vMun) {
 
-    ofstream ofs("/home/alfonso/devel/renic.git/renic.git/utiles/checa_iter_cg/ver2/salida/" + sarchivo);
+    ofstream ofs("/home/alfonso/devel/renic/renic.git/utiles/checa_iter_cg/ver2/salida/" + sarchivo);
     for (auto &rec: vRec) {
         if (rec.id_mun > 0) {
             Municipio mun = vMun[rec.id_mun];
@@ -47,7 +47,7 @@ void imprimeSalidaMun(string sarchivo, vector<Recurso> &vRec, vector<Municipio> 
             }
         }
     }
-
+    ofs.close();
 }
 
 /**
@@ -57,7 +57,7 @@ void imprimeSalidaMun(string sarchivo, vector<Recurso> &vRec, vector<Municipio> 
  */
 void imprimeSalidaEnt(string sarchivo, vector<Recurso> &vRec, vector<Entidad> &vEnt) {
 
-    ofstream ofs("/home/alfonso/devel/renic.git/renic.git/utiles/checa_iter_cg/ver2/salida/" + sarchivo);
+    ofstream ofs("/home/alfonso/devel/renic/renic.git/utiles/checa_iter_cg/ver2/salida/" + sarchivo);
     for (auto &rec: vRec) {
         if (rec.id_ent > 0) {
             Entidad ent = vEnt[rec.id_ent];
@@ -67,5 +67,27 @@ void imprimeSalidaEnt(string sarchivo, vector<Recurso> &vRec, vector<Entidad> &v
             }
         }
     }
+    ofs.close();
+}
 
+/**
+ *
+ * @param sarchivo
+ * @param vRec
+ * @param vMnz
+ */
+void imprimeSalidaCompleta(string sarchivo, vector<Recurso> &vRec, vector<Manzana> &vMnz){
+        
+    ofstream ofs("/home/alfonso/devel/renic/renic.git/utiles/checa_iter_cg/ver2/salida/" + sarchivo);
+    for (auto &rec: vRec) {
+        if (rec.id_mnz > 0) {
+            Manzana mnz = vMnz[rec.id_mnz];
+            
+                ofs << rec.id << "|" << rec.stipo << "|" << rec.estado_id << "|" << rec.municipio_id << "|"
+                    << rec.localidad_id << "|" << mnz.estado_id << "|" << mnz.municipio_id << "|" << mnz.localidad_id
+                    <<"|"<< mnz.sageb <<"|"<<mnz.manzana_id << endl;
+            
+        }
+    }
+    ofs.close();
 }

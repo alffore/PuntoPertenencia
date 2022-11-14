@@ -7,6 +7,7 @@ using namespace std;
 vector<Recurso> vRec;
 
 vector<Manzana> vMnz;
+vector<Ageb> vAgeb;
 vector<Entidad> vEnt;
 vector<Municipio> vMun;
 
@@ -16,8 +17,11 @@ unsigned int NUM_HILOS = 8;
 size_t tamrec = 0;
 
 size_t tammnz = 0;
+size_t tamagb =0;
 size_t tament = 0;
 size_t tammun = 0;
+
+extern void imprimeSalidaCompleta(string sarchivo, vector<Recurso> &vRec, vector<Manzana> &vMnz);
 
 extern void imprimeSalidaMnz(string sarchivo, vector<Recurso> &vRec, vector<Manzana> &vMnz);
 
@@ -83,8 +87,39 @@ void checaPuntosMnz(int id) {
 
                 if (res > 0) {
                     vRec[i].id_mnz = m;
-                    vRec[i].nlocalidad_id = mnz.localidad_id;
+
+                    vRec[i].nmanzana_id = mnz.manzana_id;
                     continue;
+                }
+            }
+        }
+
+    }
+
+}
+
+
+void checaPuntoAgeb(int id){
+
+    for (size_t a=0; a<tamagb; a++){
+        Ageb agb = vAgeb[a];
+        
+        for(size_t i = id;i<tamrec; i+=NUM_HILOS){
+            avance[id]++;
+
+            if(id==0 && avance[id]%100000==0){
+                imprimeAvance(tamrec*tamagb);
+            }
+
+            vRec[i].estado_id=vRec[i].nestado_id;
+            vRec[i].municipio_id=vRec[i].nmunicipio_id;
+            
+            if(vRec[i].nestado_id == agb.estado_id && 
+            vRec[i].nmunicipio_id== agb.municipio_id){
+                int res = checa_posicion(vRec[i].p, agb.vpuntos.begin(), agb.vpuntos.end(), K());
+                if(res>0){
+                    vRec[i].nlocalidad_id = agb.localidad_id;
+                    vRec[i].nsageb_id = agb.sageb_id;
                 }
             }
         }
@@ -168,7 +203,7 @@ int main() {
     CCG2CCL c2c(sp1, sp2);
 
     //Carga de recursos
-    string sarchivo_rec = "/home/alfonso/devel/renic.git/renic.git/utiles/checa_iter_cg/ver2/origen/recursos_0.txt";
+    string sarchivo_rec = "/home/alfonso/devel/renic/renic.git/utiles/checa_iter_cg/ver2/origen/recursos_0.txt";
     //string sarchivo_rec = "/home/alfonso/devel/renic.git/renic.git/utiles/checa_iter_cg/ver2/origen/recursos_20.txt";
     //string sarchivo_rec = "/home/alfonso/devel/renic.git/renic.git/utiles/checa_iter_cg/ver2/origen/recursos_demo.txt";
     LectorRec lecrec(sarchivo_rec, "|", vRec, c2c);
@@ -181,22 +216,29 @@ int main() {
     lecent.inicia();
     cout << "Total de poligonos de entidades: " << vEnt.size() << endl;
 
+    //Carga municipios
     string sarchivo_mun = "/fhome/alfonso/devel/CPV2020/MGM/INTS/00mun.int";
     LectorMun lecmun(sarchivo_mun, "|", vMun);
     lecmun.inicia();
     cout << "Total de poligonos de municipios: " << vMun.size() << endl;
 
+    //Carga Ageb
+    string sarchivo_ageb = "/fhome/alfonso/devel/CPV2020/MGM/ageb/00a.int";
+    LectorAgeb lecageb(sarchivo_ageb,"|",vAgeb);
+    lecageb.inicia();
+    cout << "Total de poligonos de agebs: " << vAgeb.size() << endl;
 
     //Carga de manzanas
     string sarchivo_mnz = "/fhome/alfonso/devel/CPV2020/MGM/mnz/todos.int";
     //string sarchivo_mnz = "/fhome/alfonso/devel/CPV2020/MGM/mnz/20m.int";
     LectorMnz lecmnz(sarchivo_mnz, "|", vMnz);
     lecmnz.inicia();
-    cout << "Total de manzanas: " << vMnz.size() << endl;
+    cout << "Total de poligonos de manzanas: " << vMnz.size() << endl;
 
 
     tamrec = vRec.size();
     tammnz = vMnz.size();
+    tamagb = vAgeb.size();
     tament = vEnt.size();
     tammun = vMun.size();
 
@@ -252,6 +294,8 @@ int main() {
     }
 
     imprimeSalidaMnz(sarchivo_sal, vRec, vMnz);
+
+    imprimeSalidaCompleta("salida_completa.txt",vRec,vMnz);
 
     return 0;
 }
