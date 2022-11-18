@@ -17,11 +17,11 @@ unsigned int NUM_HILOS = 8;
 size_t tamrec = 0;
 
 size_t tammnz = 0;
-size_t tamagb =0;
+size_t tamagb = 0;
 size_t tament = 0;
 size_t tammun = 0;
 
-extern void imprimeSalidaCompleta(string sarchivo, vector<Recurso> &vRec, vector<Manzana> &vMnz);
+extern void imprimeSalidaCompleta(string sarchivo, vector<Recurso> &vRec);
 
 extern void imprimeSalidaMnz(string sarchivo, vector<Recurso> &vRec, vector<Manzana> &vMnz);
 
@@ -73,22 +73,23 @@ int checa_posicion(Point p, vector<Point>::iterator p_inicio, vector<Point>::ite
 void checaPuntosMnz(int id) {
 
     for (size_t m = 0; m < tammnz; m++) {
-        Manzana mnz = vMnz[m];
+        Manzana& mnz = vMnz[m];
 
         for (size_t i = id; i < tamrec; i += NUM_HILOS) {
             avance[id]++;
+            Recurso &rec = vRec[i];
 
             if (id == 0 && avance[id] % 100000 == 0) {
                 imprimeAvance(tamrec * tammnz);
             }
 
-            if (vRec[i].nestado_id == mnz.estado_id && vRec[i].nmunicipio_id == mnz.municipio_id) {
-                int res = checa_posicion(vRec[i].p, mnz.vpuntos.begin(), mnz.vpuntos.end(), K());
+            if (rec.nestado_id == mnz.estado_id && rec.nmunicipio_id == mnz.municipio_id
+                && rec.nlocalidad_id == mnz.localidad_id && rec.nsageb_id == mnz.sageb_id) {
+                int res = checa_posicion(rec.p, mnz.vpuntos.begin(), mnz.vpuntos.end(), K());
 
                 if (res > 0) {
-                    vRec[i].id_mnz = m;
-
-                    vRec[i].nmanzana_id = mnz.manzana_id;
+                    rec.id_mnz = m;
+                    rec.nmanzana_id = mnz.manzana_id;
                     continue;
                 }
             }
@@ -98,28 +99,31 @@ void checaPuntosMnz(int id) {
 
 }
 
+/**
+ * 
+ * @param id
+ */
+void checaPuntosAgeb(int id) {
 
-void checaPuntoAgeb(int id){
+    for (size_t a = 0; a < tamagb; a++) {
+        Ageb& agb = vAgeb[a];
 
-    for (size_t a=0; a<tamagb; a++){
-        Ageb agb = vAgeb[a];
-        
-        for(size_t i = id;i<tamrec; i+=NUM_HILOS){
+        for (size_t i = id; i < tamrec; i += NUM_HILOS) {
             avance[id]++;
+            Recurso &rec = vRec[i];
 
-            if(id==0 && avance[id]%100000==0){
-                imprimeAvance(tamrec*tamagb);
+            if (id == 0 && avance[id] % 100000 == 0) {
+                imprimeAvance(tamrec * tamagb);
             }
 
-            vRec[i].estado_id=vRec[i].nestado_id;
-            vRec[i].municipio_id=vRec[i].nmunicipio_id;
-            
-            if(vRec[i].nestado_id == agb.estado_id && 
-            vRec[i].nmunicipio_id== agb.municipio_id){
-                int res = checa_posicion(vRec[i].p, agb.vpuntos.begin(), agb.vpuntos.end(), K());
-                if(res>0){
-                    vRec[i].nlocalidad_id = agb.localidad_id;
-                    vRec[i].nsageb_id = agb.sageb_id;
+            if (rec.nestado_id == agb.estado_id &&
+                rec.nmunicipio_id == agb.municipio_id) {
+                int res = checa_posicion(rec.p, agb.vpuntos.begin(), agb.vpuntos.end(), K());
+                if (res > 0) {
+                    rec.nlocalidad_id = agb.localidad_id;
+                    rec.nsageb_id = agb.sageb_id;
+                    rec.id_agb = a;
+                    continue;
                 }
             }
         }
@@ -128,32 +132,6 @@ void checaPuntoAgeb(int id){
 
 }
 
-/**
- * @brief 
- * 
- * @param id 
- */
-void checaPuntosEnt(int id) {
-    for (size_t e = 0; e < tament; e++) {
-        Entidad ent = vEnt[e];
-        for (size_t i = id; i < tamrec; i += NUM_HILOS) {
-            avance[id]++;
-
-            if (id == 0 && avance[id] % 10000 == 0) {
-                imprimeAvance(tamrec * tament);
-            }
-
-            int res = checa_posicion(vRec[i].p, ent.vpuntos.begin(), ent.vpuntos.end(), K());
-
-            if (res > 0) {
-                vRec[i].id_ent = e;
-                vRec[i].nestado_id = ent.estado_id;
-                continue;
-            }
-
-        }
-    }
-}
 
 /**
  * @brief 
@@ -162,19 +140,20 @@ void checaPuntosEnt(int id) {
  */
 void checaPuntosMun(int id) {
     for (size_t e = 0; e < tammun; e++) {
-        Municipio mun = vMun[e];
+        Municipio& mun = vMun[e];
         for (size_t i = id; i < tamrec; i += NUM_HILOS) {
             avance[id]++;
+            Recurso &rec = vRec[i];
 
             if (id == 0 && avance[id] % 10000 == 0) {
                 imprimeAvance(tamrec * tammun);
             }
 
-            if (vRec[i].nestado_id == mun.estado_id) {
-                int res = checa_posicion(vRec[i].p, mun.vpuntos.begin(), mun.vpuntos.end(), K());
+            if (rec.nestado_id == mun.estado_id) {
+                int res = checa_posicion(rec.p, mun.vpuntos.begin(), mun.vpuntos.end(), K());
                 if (res > 0) {
-                    vRec[i].id_mun = e;
-                    vRec[i].nmunicipio_id = mun.municipio_id;
+                    rec.id_mun = e;
+                    rec.nmunicipio_id = mun.municipio_id;
                     continue;
                 }
             }
@@ -182,6 +161,36 @@ void checaPuntosMun(int id) {
         }
     }
 }
+
+
+/**
+ * @brief 
+ * 
+ * @param id 
+ */
+void checaPuntosEnt(int id) {
+    for (size_t e = 0; e < tament; e++) {
+        Entidad& ent = vEnt[e];
+        for (size_t i = id; i < tamrec; i += NUM_HILOS) {
+            avance[id]++;
+            Recurso &rec = vRec[i];
+
+            if (id == 0 && avance[id] % 10000 == 0) {
+                imprimeAvance(tamrec * tament);
+            }
+
+            int res = checa_posicion(rec.p, ent.vpuntos.begin(), ent.vpuntos.end(), K());
+
+            if (res > 0) {
+                rec.id_ent = e;
+                rec.nestado_id = ent.estado_id;
+                continue;
+            }
+
+        }
+    }
+}
+
 
 /**
  *
@@ -204,8 +213,6 @@ int main() {
 
     //Carga de recursos
     string sarchivo_rec = "/home/alfonso/devel/renic/renic.git/utiles/checa_iter_cg/ver2/origen/recursos_0.txt";
-    //string sarchivo_rec = "/home/alfonso/devel/renic.git/renic.git/utiles/checa_iter_cg/ver2/origen/recursos_20.txt";
-    //string sarchivo_rec = "/home/alfonso/devel/renic.git/renic.git/utiles/checa_iter_cg/ver2/origen/recursos_demo.txt";
     LectorRec lecrec(sarchivo_rec, "|", vRec, c2c);
     lecrec.inicia();
     cout << "Total de recursos: " << vRec.size() << endl;
@@ -224,13 +231,12 @@ int main() {
 
     //Carga Ageb
     string sarchivo_ageb = "/fhome/alfonso/devel/CPV2020/MGM/ageb/00a.int";
-    LectorAgeb lecageb(sarchivo_ageb,"|",vAgeb);
+    LectorAgeb lecageb(sarchivo_ageb, "|", vAgeb);
     lecageb.inicia();
     cout << "Total de poligonos de agebs: " << vAgeb.size() << endl;
 
     //Carga de manzanas
     string sarchivo_mnz = "/fhome/alfonso/devel/CPV2020/MGM/mnz/todos.int";
-    //string sarchivo_mnz = "/fhome/alfonso/devel/CPV2020/MGM/mnz/20m.int";
     LectorMnz lecmnz(sarchivo_mnz, "|", vMnz);
     lecmnz.inicia();
     cout << "Total de poligonos de manzanas: " << vMnz.size() << endl;
@@ -281,6 +287,25 @@ int main() {
         v = 0;
     }
 
+
+    cout << "AGEB ..." << endl;
+    vthreads.clear();
+
+
+    for (int i = 0; i < NUM_HILOS; i++) {
+        vthreads.emplace_back(checaPuntosAgeb, i);
+    }
+
+    for (auto &th: vthreads) {
+        th.join();
+    }
+
+
+    for (auto &v: avance) {
+        v = 0;
+    }
+
+
     cout << "Manzanas..." << endl;
     vthreads.clear();
     sarchivo_sal = "problemas_mnz.txt";
@@ -295,7 +320,7 @@ int main() {
 
     imprimeSalidaMnz(sarchivo_sal, vRec, vMnz);
 
-    imprimeSalidaCompleta("salida_completa.txt",vRec,vMnz);
+    imprimeSalidaCompleta("salida_completa.txt", vRec);
 
     return 0;
 }

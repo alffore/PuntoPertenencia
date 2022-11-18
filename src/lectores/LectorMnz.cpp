@@ -23,7 +23,7 @@ void LectorMnz::parser(string scad) {
     mnz.municipio_id = atoi(vc[5].c_str());
     mnz.localidad_id = atoi(vc[6].c_str());
 
-    mnz.sageb = vc[7];
+    mnz.sageb_id = vc[7];
     mnz.manzana_id= atoi(vc[8].c_str());
 
     vMnz.push_back(mnz);

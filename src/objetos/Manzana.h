@@ -25,7 +25,7 @@ struct Manzana{
     int municipio_id;
     int localidad_id;
 
-    string sageb;
+    string sageb_id;
     int manzana_id;
 
 };

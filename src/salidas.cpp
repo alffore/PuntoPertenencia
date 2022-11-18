@@ -76,18 +76,12 @@ void imprimeSalidaEnt(string sarchivo, vector<Recurso> &vRec, vector<Entidad> &v
  * @param vRec
  * @param vMnz
  */
-void imprimeSalidaCompleta(string sarchivo, vector<Recurso> &vRec, vector<Manzana> &vMnz){
-        
+void imprimeSalidaCompleta(string sarchivo, vector<Recurso> &vRec) {
+
     ofstream ofs("/home/alfonso/devel/renic/renic.git/utiles/checa_iter_cg/ver2/salida/" + sarchivo);
     for (auto &rec: vRec) {
-        if (rec.id_mnz > 0) {
-            Manzana mnz = vMnz[rec.id_mnz];
-            
-                ofs << rec.id << "|" << rec.stipo << "|" << rec.estado_id << "|" << rec.municipio_id << "|"
-                    << rec.localidad_id << "|" << mnz.estado_id << "|" << mnz.municipio_id << "|" << mnz.localidad_id
-                    <<"|"<< mnz.sageb <<"|"<<mnz.manzana_id << endl;
-            
-        }
+        ofs << rec.id << "|" << rec.stipo << "|" << rec.nestado_id << "|" << rec.nmunicipio_id << "|"
+            << rec.nlocalidad_id << "|" << rec.nsageb_id << "|" << rec.nmanzana_id << endl;
     }
     ofs.close();
 }
