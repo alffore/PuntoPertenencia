@@ -1,0 +1,15 @@
+# Versión Debug
+cd Debug
+
+cmake ..
+
+cmake --build . --config Release
+
+
+# Versión Release
+cd Release
+
+cmake ..
+
+cmake --build . --config Release
+

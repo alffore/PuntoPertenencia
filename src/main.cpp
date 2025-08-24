@@ -218,25 +218,25 @@ int main() {
     cout << "Total de recursos: " << vRec.size() << endl;
 
     //Carga de entidades
-    string sarchivo_ent = "/fhome/alfonso/devel/CPV2020/MGM/INTS/00ent.int";
+    string sarchivo_ent = "/home/alfonso/devel/CPV2020/MGM/INTS/00ent.int";
     LectorEnt lecent(sarchivo_ent, "|", vEnt);
     lecent.inicia();
     cout << "Total de poligonos de entidades: " << vEnt.size() << endl;
 
     //Carga municipios
-    string sarchivo_mun = "/fhome/alfonso/devel/CPV2020/MGM/INTS/00mun.int";
+    string sarchivo_mun = "/home/alfonso/devel/CPV2020/MGM/INTS/00mun.int";
     LectorMun lecmun(sarchivo_mun, "|", vMun);
     lecmun.inicia();
     cout << "Total de poligonos de municipios: " << vMun.size() << endl;
 
     //Carga Ageb
-    string sarchivo_ageb = "/fhome/alfonso/devel/CPV2020/MGM/ageb/00a.int";
+    string sarchivo_ageb = "/home/alfonso/devel/CPV2020/MGM/ageb/00a.int";
     LectorAgeb lecageb(sarchivo_ageb, "|", vAgeb);
     lecageb.inicia();
     cout << "Total de poligonos de agebs: " << vAgeb.size() << endl;
 
     //Carga de manzanas
-    string sarchivo_mnz = "/fhome/alfonso/devel/CPV2020/MGM/mnz/todos.int";
+    string sarchivo_mnz = "/home/alfonso/devel/CPV2020/MGM/mnz/todos.int";
     LectorMnz lecmnz(sarchivo_mnz, "|", vMnz);
     lecmnz.inicia();
     cout << "Total de poligonos de manzanas: " << vMnz.size() << endl;
