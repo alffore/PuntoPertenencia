@@ -1,0 +1,3 @@
+/home/alfonso/devel/PuntoPertenencia/debug/CMakeFiles/PuntoPertenencia.dir
+/home/alfonso/devel/PuntoPertenencia/debug/CMakeFiles/edit_cache.dir
+/home/alfonso/devel/PuntoPertenencia/debug/CMakeFiles/rebuild_cache.dir
